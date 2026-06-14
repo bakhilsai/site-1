@@ -868,6 +868,8 @@ a{text-decoration:none;color:inherit}
   .ps-header { flex-direction: column; gap: 2rem; }
   .ps-title { font-size: 3rem; }
   .ps-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .zoho-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+  .zoho-grid .ps-pill { grid-column: auto !important; }
   .ps-bot { width: 90%; justify-content: center; text-align: center; font-size: 0.75rem; bottom: 1.5rem; }
 }
 /* ─── SCROLL REVEAL ─────────────────── */
@@ -1232,7 +1234,7 @@ footer::before{
         <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/books.svg" class="z-ico" alt="Zoho Books"> Books</div>
         <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/expense.svg" class="z-ico" alt="Zoho Expense"> Expense</div>
         <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/flow.svg" class="z-ico" alt="Zoho Flow"> Flow</div>
-        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/forms.svg" class="z-ico" alt="Zoho Forms"> Forms</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/sign.svg" class="z-ico" alt="Zoho Sign"> Sign</div>
         <div class="ps-pill" style="grid-column: span 2;"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/subscriptions.svg" class="z-ico" alt="Zoho Subscriptions"> Subscriptions</div>
       </div>
     </div>
@@ -1452,9 +1454,8 @@ footer::before{
   </div>
   <div class="fbot" style="flex-direction:column; gap:1.5rem;">
     <div style="max-width:640px; margin:0 auto; text-align:center; font-size:.8rem; line-height:1.6; color:var(--muted);">Started with Zoho CRM and Deluge. Two years later I was running full org implementations, building AI pipelines, and designing cybersecurity recovery plans. Every project taught me something the previous one didn't.</div>
-    <div style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:1rem;">
-      <div style="flex:1; text-align:left; min-width:200px">© 2026 Akhil Sai Botu · <a href="tel:+917386400905">+91 7386400905</a></div>
-      <div style="flex:1; text-align:right; min-width:200px"><a href="https://bit.ly/akhilsaib">bit.ly/akhilsaib</a></div>
+    <div style="display:flex; justify-content:center; width:100%; flex-wrap:wrap; gap:1rem;">
+      <div style="text-align:center; min-width:200px">© 2026 Akhil Sai Botu · <a href="tel:+917386400905">+91 7386400905</a></div>
     </div>
   </div>
 </footer>
