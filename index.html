@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bakhil. — Systems That Scale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050505; --fg:#fff; --red:#FF3B30;
+  --muted:#666; --border:rgba(255,255,255,0.07);
+  --card:#0b0b0b; --card2:#0e0e0e;
+  --bebas:'Bebas Neue',cursive;
+  --inter:'Inter',sans-serif;
+  --hand:'Caveat',cursive;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--inter);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--red);color:#fff}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:var(--red)}
+
+/* ─── NAV ─────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem; height:62px;
+  background:rgba(5,5,5,0.8);
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:var(--bebas);font-size:1.8rem;letter-spacing:1px}
+.logo .dot{color:var(--red)}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{
+  font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);transition:color .2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:100%;
+  height:1px;background:var(--red);transition:right .3s;
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{right:0}
+.nav-pill{
+  font-family:var(--hand);font-size:1.2rem;
+  padding:.4rem 1.3rem;
+  border:1px dashed rgba(255,255,255,.18);
+  border-radius:100px;
+  transition:all .25s;
+}
+.nav-pill:hover{border-color:var(--red);color:var(--red)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:#fff;transition:all .3s}
+
+/* ─── HERO ───────────────────────────── */
+.hero{
+  min-height:100vh;
+  padding-top:62px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+
+/* Ambient blobs */
+.blob{position:absolute;pointer-events:none;border-radius:50%;filter:blur(120px)}
+.blob1{top:-100px;right:-100px;width:600px;height:600px;background:rgba(255,59,48,.06)}
+.blob2{bottom:-150px;left:5%;width:500px;height:500px;background:rgba(255,59,48,.04)}
+.blob3{top:40%;left:30%;width:300px;height:300px;background:rgba(255,59,48,.02)}
+
+/* ─── HERO LEFT ─── */
+.hero-l{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 3rem 4rem 3rem;
+  border-right:1px solid var(--border);
+  position:relative;z-index:5;
+}
+
+/* Doodles on left */
+.doodle-wrap{position:absolute;pointer-events:none}
+
+/* Badge */
+.badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1.75rem;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .6s .15s forwards;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* Hero Title */
+.hero-title{
+  font-family:var(--bebas);
+  font-size:clamp(5rem,8.5vw,9rem);
+  line-height:.85;letter-spacing:-1px;
+  margin-bottom:2.5rem;
+  position:relative;
+}
+.ht-line{display:block;overflow:hidden}
+.ht-line span{display:block;transform:translateY(110%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards}
+.ht-line:nth-child(1) span{animation-delay:.3s}
+.ht-line:nth-child(2) span{animation-delay:.45s}
+.ht-line:nth-child(3) span{animation-delay:.6s}
+@keyframes slideUp{to{transform:translateY(0)}}
+
+/* Hand-drawn underline under SCALE */
+.ht-line:last-child{position:relative}
+.underline-svg{
+  position:absolute;bottom:-8px;left:0;
+  width:100%;overflow:visible;
+}
+.underline-path{
+  fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;
+  stroke-dasharray:300;stroke-dashoffset:300;
+  animation:drawLine 1s .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+
+/* Circle doodle around "THAT" */
+.circle-doodle{
+  position:absolute;left:-8px;top:-10px;
+  width:calc(100% + 16px);height:calc(100% + 20px);
+  overflow:visible;pointer-events:none;
+}
+.circle-path{
+  fill:none;stroke:rgba(255,255,255,.12);stroke-width:1.5;stroke-linecap:round;
+  stroke-dasharray:400;stroke-dashoffset:400;
+  animation:drawLine .8s .7s ease forwards;
+}
+
+.hero-sub{
+  font-size:.95rem;color:var(--muted);line-height:1.8;max-width:42ch;
+  margin-bottom:2.5rem;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .7s .85s forwards;
+}
+
+.hero-actions{
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .7s 1s forwards;
+}
+.btn-red{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 2rem;background:var(--red);border-radius:100px;
+  font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 4px 30px rgba(255,59,48,.35);
+  transition:all .3s;
+}
+.btn-red:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(255,59,48,.5)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 2rem;border:1px solid rgba(255,255,255,.12);border-radius:100px;
+  font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  transition:all .3s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
+
+/* Hand annotation */
+.hand-note{
+  font-family:var(--hand);font-size:1.3rem;color:rgba(255,255,255,.35);
+  display:flex;align-items:flex-start;gap:.4rem;
+  transform:rotate(-4deg);line-height:1.3;
+}
+
+/* Stats row */
+.stats-row{
+  display:flex;gap:2rem;margin-top:3rem;
+  padding-top:2rem;border-top:1px solid var(--border);
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .7s 1.15s forwards;
+}
+.stat span:first-child{
+  font-family:var(--bebas);font-size:2.2rem;color:var(--red);
+  line-height:1;display:block;
+}
+.stat span:last-child{
+  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ─── HERO RIGHT (Illustration) ─── */
+.hero-r{
+  position:relative;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+  padding:3rem;
+}
+
+/* Hand-drawn background scribbles */
+.hero-r-bg{
+  position:absolute;inset:0;pointer-events:none;
+  overflow:hidden;z-index:1;
+}
+
+/* Laptop */
+.laptop-container{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+}
+.lc-inner{
+  position:relative;
+  width:320px;
+}
+.ls{
+  width:100%;height:200px;
+  border:1.5px solid rgba(255,255,255,.15);border-bottom:none;
+  border-radius:14px 14px 0 0;background:#070707;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 60px rgba(255,59,48,.06),inset 0 0 40px rgba(0,0,0,.5);
+}
+.ls::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 110%,rgba(255,59,48,.1),transparent 60%);
+}
+.ls-cam{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1);
+}
+.zoho-z{display:flex;gap:5px;position:relative;z-index:2;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.zoho-z span{
+  font-family:var(--bebas);font-size:2.4rem;
+  width:46px;height:46px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.z1{background:#FF3B30;box-shadow:0 4px 20px rgba(255,59,48,.5)}
+.z2{background:#F1C40F;box-shadow:0 4px 20px rgba(241,196,15,.4)}
+.z3{background:#2ECC71;box-shadow:0 4px 20px rgba(46,204,113,.4)}
+.z4{background:#3498DB;box-shadow:0 4px 20px rgba(52,152,219,.4)}
+.lc-chin{width:108%;margin-left:-4%;height:12px;background:#111;border:1.5px solid rgba(255,255,255,.08);border-top:none;border-radius:0 0 8px 8px}
+.lc-foot{width:50%;margin:0 auto;height:6px;background:#1a1a1a;border-radius:0 0 6px 6px}
+
+/* ── App chips around laptop ── */
+.chip-orbit{
+  position:absolute;inset:-100px;
+  width:calc(100% + 200px);height:calc(100% + 200px);
+  pointer-events:none;
+}
+.app-c{
+  position:absolute;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  pointer-events:all;cursor:default;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.app-c:hover{transform:scale(1.15) translateY(-4px) !important}
+.app-c:hover .ci{border-color:var(--red);box-shadow:0 8px 30px rgba(255,59,48,.25)}
+.ci{
+  width:46px;height:46px;
+  background:var(--card);
+  border:1px dashed rgba(255,255,255,.18);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.cl{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* Position each chip */
+.c-crm{top:5%;left:50%;transform:translateX(-200px)}
+.c-ai{top:-5%;left:50%;transform:translateX(-30px)}
+.c-desk{top:5%;right:8%}
+.c-creator{top:50%;left:2%;transform:translateY(-70px)}
+.c-sign{top:50%;right:0;transform:translateY(-70px)}
+.c-analy{bottom:18%;left:8%}
+.c-forms{bottom:18%;right:5%}
+
+/* SVG wires */
+.wires-svg{
+  position:absolute;inset:-100px;
+  width:calc(100% + 200px);height:calc(100% + 200px);
+  pointer-events:none;z-index:5;overflow:visible;
+}
+.wire{
+  stroke:rgba(255,255,255,.07);stroke-width:1;fill:none;
+  stroke-dasharray:6 4;
+}
+.wire-anim{animation:wireDash 8s linear infinite}
+.wire-anim2{animation:wireDash 6s linear infinite reverse}
+.wire-anim3{animation:wireDash 10s linear infinite}
+@keyframes wireDash{to{stroke-dashoffset:-60}}
+
+/* Doodle annotations */
+.doodle-a{
+  position:absolute;pointer-events:none;z-index:8;
+  font-family:var(--hand);color:rgba(255,255,255,.25);
+}
+.doodle-svg-a{position:absolute;pointer-events:none;z-index:8;overflow:visible}
+.draw-path{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:200;stroke-dashoffset:200;
+}
+/* Draw animations with delays */
+.dp1{animation:drawLine 1.2s 1.4s ease forwards}
+.dp2{animation:drawLine 1s 1.6s ease forwards}
+.dp3{animation:drawLine .8s 1.8s ease forwards}
+.dp4{animation:drawLine 1s 2s ease forwards}
+.dp5{animation:drawLine .9s 2.2s ease forwards}
+
+/* AI bot doodle */
+.bot-wrap{
+  position:absolute;top:-75px;left:50%;transform:translateX(-50%);
+  z-index:12;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.bot-label{font-family:var(--hand);font-size:1rem;color:rgba(255,255,255,.3)}
+
+/* Stars scattered */
+.star-d{
+  position:absolute;pointer-events:none;z-index:6;
+  color:rgba(255,255,255,.12);font-size:.9rem;
+}
+
+/* ─── HERO RIGHT: Floating Dashboard ─── */
+.hero-r{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;padding:3rem 2rem;
+}
+.dash-scene{
+  position:relative;width:100%;max-width:480px;
+  perspective:1200px;
+}
+.dash-tilt{
+  transform:rotateX(8deg) rotateY(-12deg);
+  transform-style:preserve-3d;
+  position:relative;
+}
+
+/* glow pulse behind cards */
+.dash-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,59,48,.14),transparent 70%);
+  pointer-events:none;
+  animation:glowBreath 4s ease-in-out infinite;
+}
+@keyframes glowBreath{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+
+/* Base glass card */
+.gc{
+  position:absolute;
+  background:rgba(16,16,18,.85);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);
+  padding:1.25rem;
+  transition:transform .3s, box-shadow .3s;
+}
+
+/* Main big card */
+.gc-main{
+  position:relative;
+  width:100%;
+  padding:1.5rem;
+  border-radius:20px;
+  background:rgba(14,14,16,.92);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(24px);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);
+  animation:floatMain 6s ease-in-out infinite;
+}
+@keyframes floatMain{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Floating cards */
+.gc-a{
+  width:160px;top:-60px;right:-20px;
+  animation:floatA 5s ease-in-out infinite;
+}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+.gc-b{
+  width:140px;bottom:-55px;right:10px;
+  animation:floatB 7s ease-in-out infinite;
+}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-12px) rotate(-1.5deg)}}
+
+.gc-c{
+  width:150px;top:30%;left:-30px;
+  animation:floatC 5.5s ease-in-out 1s infinite;
+}
+@keyframes floatC{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(-2deg)}}
+
+.gc-d{
+  width:170px;bottom:-40px;left:-10px;
+  animation:floatD 6.5s ease-in-out .5s infinite;
+}
+@keyframes floatD{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* Card internal styles */
+.gc-label{
+  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.6rem;
+}
+.gc-val{font-family:var(--bebas);font-size:1.8rem;line-height:1;color:#fff}
+.gc-sub{font-size:.65rem;color:var(--muted);margin-top:.2rem}
+.gc-red{color:var(--red)}
+
+/* Live dot */
+.live{display:flex;align-items:center;gap:.4rem;font-size:.65rem;color:var(--muted);margin-bottom:.75rem}
+.live-d{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s infinite;flex-shrink:0}
+
+/* Chart SVG inside main card */
+.chart-wrap{margin:1rem 0;position:relative}
+.chart-label{display:flex;justify-content:space-between;margin-bottom:.5rem}
+.chart-label span{font-size:.62rem;color:var(--muted)}
+
+/* Stats row in main card */
+.stats-mini{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.05)}
+.sm-item{display:flex;flex-direction:column;gap:.15rem}
+.sm-v{font-family:var(--bebas);font-size:1.4rem;line-height:1}
+.sm-l{font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+
+/* Ring progress */
+.ring-wrap{display:flex;align-items:center;justify-content:center;gap:.75rem}
+.ring-label h4{font-family:var(--bebas);font-size:1.4rem;margin-bottom:2px}
+.ring-label p{font-size:.62rem;color:var(--muted)}
+
+/* Notification toast */
+.toast{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.7rem;color:rgba(255,255,255,.7);
+}
+.toast-ico{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;
+}
+.toast-ico.red{background:rgba(255,59,48,.15)}
+.toast-ico.green{background:rgba(46,204,113,.12)}
+.toast-ico.blue{background:rgba(52,152,219,.12)}
+.toast-t{font-weight:600;font-size:.72rem;color:#fff}
+.toast-s{font-size:.62rem;color:var(--muted)}
+
+/* Workflow chips row */
+.flow-row{display:flex;align-items:center;gap:.3rem;margin-top:.6rem;flex-wrap:wrap}
+.fchip{
+  font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.2rem .5rem;border-radius:100px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  color:var(--muted);
+}
+.flow-arrow{color:rgba(255,59,48,.5);font-size:.75rem}
+
+/* Slide-in toast animation */
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* Fade up entry for whole scene */
+.dash-scene{opacity:0;transform:translateY(20px);animation:dashEntry .8s 1.2s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes dashEntry{to{opacity:1;transform:translateY(0)}}
+
+/* ─── TICKER ─────────────────────────── */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#080808;padding:.9rem 0}
+.ticker-t{display:flex;width:max-content;animation:tick 25s linear infinite}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker:hover .ticker-t{animation-play-state:paused}
+.ti{
+  display:flex;align-items:center;gap:.8rem;padding:0 2rem;
+  font-family:var(--bebas);font-size:1.2rem;letter-spacing:.08em;
+  color:rgba(255,255,255,.2);white-space:nowrap;border-right:1px solid var(--border);
+}
+.ti.red{color:var(--red)}
+
+/* ─── BENTO SECTIONS ─────────────────── */
+.section-divider{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:3.5rem 3rem 2rem;
+}
+.sd-num{
+  font-family:var(--bebas);font-size:1rem;letter-spacing:.2em;
+  color:var(--red);border:1px solid rgba(255,59,48,.2);
+  padding:.2rem .75rem;border-radius:100px;
+}
+.sd-title{
+  font-family:var(--bebas);font-size:2rem;letter-spacing:1px;
+}
+.sd-line{flex:1;height:1px;background:linear-gradient(to right,rgba(255,255,255,.07),transparent)}
+.sd-hand{font-family:var(--hand);font-size:1.1rem;color:rgba(255,255,255,.18);transform:rotate(-3deg)}
+
+/* Bento grid */
+.bento{
+  padding:0 3rem 3rem;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:.85rem;
+}
+
+/* Card base */
+.bc{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:1.75rem;
+  position:relative;overflow:hidden;
+  transition:border-color .4s,transform .4s;
+}
+.bc:hover{border-color:rgba(255,255,255,.11)}
+/* 3D tilt applied by JS */
+
+/* Top color bar */
+.tc{position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .35s;border-radius:20px 20px 0 0}
+.bc:hover .tc{opacity:1}
+.tc-red{background:linear-gradient(to right,var(--red),transparent)}
+.tc-blue{background:linear-gradient(to right,#3498DB,transparent)}
+.tc-green{background:linear-gradient(to right,#2ECC71,transparent)}
+.tc-purple{background:linear-gradient(to right,#9B59B6,transparent)}
+.tc-yellow{background:linear-gradient(to right,#F1C40F,transparent)}
+.tc-teal{background:linear-gradient(to right,#1ABC9C,transparent)}
+
+/* Watermark */
+.wm{
+  position:absolute;right:-15px;bottom:-20px;
+  font-family:var(--bebas);font-size:7rem;
+  color:rgba(255,255,255,.022);pointer-events:none;line-height:1;user-select:none;
+}
+
+/* Spans */
+.s5{grid-column:span 5}
+.s7{grid-column:span 7}
+.s4{grid-column:span 4}
+.s6{grid-column:span 6}
+.s8{grid-column:span 8}
+.s12{grid-column:span 12}
+.s3{grid-column:span 3}
+
+/* btag */
+.btag{
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--red);background:rgba(255,59,48,.08);
+  padding:.18rem .65rem;border-radius:100px;display:inline-block;margin-bottom:1rem;
+}
+.btitle{font-family:var(--bebas);font-size:1.5rem;letter-spacing:1px;margin-bottom:1.25rem}
+
+/* ─── EXP ─── */
+.exp-cards{display:flex;flex-direction:column;gap:1.1rem}
+.ec{
+  padding:1.25rem;background:rgba(255,255,255,.02);
+  border:1px solid var(--border);border-radius:14px;
+  position:relative;overflow:hidden;transition:all .3s;
+}
+.ec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--red);border-radius:2px;transform:scaleY(0);transition:transform .3s;transform-origin:bottom}
+.ec:hover::before{transform:scaleY(1)}
+.ec:hover{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+.ec-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.8rem}
+.ec-role{font-size:.9rem;font-weight:600}
+.ec-co{font-size:.73rem;color:var(--muted);margin-top:2px}
+.ec-date{font-size:.6rem;color:var(--red);font-family:monospace}
+.pts{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.pts li{font-size:.76rem;color:var(--muted);padding-left:.95rem;position:relative;line-height:1.5}
+.pts li::before{content:'▸';position:absolute;left:0;color:var(--red);font-size:.62rem;top:2px}
+.pts b{color:rgba(255,255,255,.75);font-weight:500}
+
+/* ─── FEAT ─── */
+.feat-stack{display:flex;flex-direction:column;gap:.85rem;height:100%;justify-content:center}
+.fi{
+  display:flex;align-items:flex-start;gap:.8rem;
+  padding:1rem;background:rgba(255,255,255,.02);
+  border:1px solid var(--border);border-radius:12px;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.fi:hover{border-color:rgba(255,255,255,.1);transform:translateX(5px)}
+.fi-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.fi h5{font-size:.8rem;font-weight:600;margin-bottom:2px}
+.fi p{font-size:.68rem;color:var(--muted);line-height:1.4}
+
+/* ─── SKILLS ─── */
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.sg-head{
+  font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.85rem;font-weight:600;
+}
+.tags-flow{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{
+  font-size:.68rem;padding:.3rem .8rem;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:100px;color:var(--muted);
+  cursor:default;transition:all .2s;
+  animation:tagIn .4s both;
+}
+.tag:hover{background:rgba(255,59,48,.1);border-color:rgba(255,59,48,.3);color:#fff;transform:translateY(-1px)}
+@keyframes tagIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── PROJ ─── */
+.pi{height:100%;display:flex;flex-direction:column;position:relative}
+.pi-ey{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.pi-name{font-size:1rem;font-weight:700;margin-bottom:.6rem;line-height:1.25}
+.pi-desc{font-size:.76rem;color:var(--muted);line-height:1.65;flex:1}
+.pi-stack{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:1rem}
+.ptag{font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;padding:.18rem .55rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;color:var(--muted)}
+.pi-num{position:absolute;bottom:.75rem;right:1rem;font-family:var(--bebas);font-size:4rem;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;transition:color .3s}
+.bc:hover .pi-num{color:rgba(255,59,48,.06)}
+
+/* Featured project */
+.pi-feat{flex-direction:row;gap:2.5rem;align-items:center}
+.pi-feat .pi-l{flex:1}
+.pi-feat .pi-r{width:180px;flex-shrink:0}
+.pi-chart{
+  width:100%;height:110px;
+  border:1px dashed rgba(255,255,255,.08);border-radius:12px;
+  padding:1rem;overflow:hidden;position:relative;
+}
+
+/* ─── EDU ─── */
+.edu-item{
+  display:flex;gap:1.5rem;align-items:flex-start;
+  padding:1.25rem;background:rgba(255,255,255,.02);
+  border:1px solid var(--border);border-radius:14px;
+  transition:all .3s;
+}
+.edu-item:hover{border-color:rgba(255,255,255,.1)}
+.edu-yr{
+  font-family:var(--bebas);font-size:1.3rem;color:var(--red);
+  flex-shrink:0;border:1px solid rgba(255,59,48,.2);
+  padding:.2rem .85rem;border-radius:100px;align-self:flex-start;
+}
+.edu-h{font-size:.9rem;font-weight:600;margin-bottom:.3rem}
+.edu-s{font-size:.75rem;color:var(--muted)}
+.edu-badges{display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap}
+.edu-badge{
+  font-size:.65rem;padding:.2rem .6rem;
+  background:rgba(255,59,48,.08);border:1px solid rgba(255,59,48,.2);
+  border-radius:100px;color:var(--red);
+}
+
+/* ─── CERTS ─── */
+.cert-list{display:flex;flex-direction:column;gap:.6rem}
+.cert-r{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.75rem 1rem;
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  border-radius:10px;font-size:.78rem;color:var(--muted);
+  transition:all .25s;
+}
+.cert-r:hover{border-color:rgba(255,255,255,.1);color:#fff}
+.cert-r .star{color:var(--red);font-size:.9rem}
+
+/* ─── INTERESTS ─── */
+.int-grid{display:flex;flex-wrap:wrap;gap:.65rem}
+.int-chip{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.2rem;
+  border:1px dashed rgba(255,255,255,.1);border-radius:100px;
+  font-size:.78rem;color:var(--muted);transition:all .25s;
+}
+.int-chip:hover{border-color:var(--red);color:#fff;transform:translateY(-2px)}
+.int-chip .arr{color:var(--red)}
+
+/* ─── SCROLL REVEAL ─────────────────── */
+.rev{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.rev.in{opacity:1;transform:translateY(0)}
+.rev-l{opacity:0;transform:translateX(-30px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.rev-l.in{opacity:1;transform:translateX(0)}
+.rev-r{opacity:0;transform:translateX(30px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.rev-r.in{opacity:1;transform:translateX(0)}
+
+/* ─── FOOTER ─────────────────────────── */
+footer{
+  border-top:1px solid var(--border);
+  padding:5rem 3rem 3rem;position:relative;overflow:hidden;
+}
+footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+.fg{display:grid;grid-template-columns:1.2fr 1fr .8fr;gap:3rem;align-items:start;margin-bottom:4rem}
+.fh{font-family:var(--bebas);font-size:clamp(2.5rem,4vw,4.5rem);line-height:.9;letter-spacing:-1px}
+.fhand{font-family:var(--hand);font-size:1.2rem;color:rgba(255,255,255,.2);margin-top:1.25rem;transform:rotate(-2.5deg);display:inline-block}
+.fp{font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+.f-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.f-ics{display:flex;gap:.65rem}
+.fic{
+  width:42px;height:42px;background:var(--card2);
+  border:1px solid var(--border);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .25s;
+}
+.fic:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px)}
+.fbot{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:2rem;border-top:1px solid var(--border);
+  font-size:.7rem;color:var(--muted);
+}
+.fbot a{color:var(--muted)}.fbot a:hover{color:var(--red)}
+
+/* ─── RESPONSIVE ─────────────────────── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .hero-l{border-right:none;border-bottom:1px solid var(--border)}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:repeat(6,1fr)}
+  .s5,.s7,.s6,.s4,.s8{grid-column:span 6}
+  .s3{grid-column:span 3}
+  .s12{grid-column:span 6}
+  .pi-feat{flex-direction:column;gap:1.5rem}
+  .pi-feat .pi-r{width:100%}
+  .fg{grid-template-columns:1fr}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:768px){
+  .nav{padding:0 1.5rem}
+  .nav-links,.nav-pill{display:none}
+  .hamburger{display:flex}
+  .hero-l{padding:3rem 1.5rem}
+  .hero-title{font-size:clamp(3.5rem,14vw,6rem)}
+  .bento{padding:0 1.5rem 2rem;grid-template-columns:1fr}
+  .bento .s3,.s4,.s5,.s6,.s7,.s8,.s12{grid-column:span 1}
+  .section-divider{padding:2.5rem 1.5rem 1.5rem}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  footer{padding:3rem 1.5rem 2rem}
+  .fbot{flex-direction:column;gap:.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo">bakhil<span class="dot">.</span></div>
+  <div class="nav-links">
+    <a href="#exp">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:akhilsaibotu@gmail.com" class="nav-pill">let's talk ↗</a>
+  <button class="hamburger" onclick="this.textContent=this.textContent==='☰'?'✕':'☰'" style="color:#fff;font-size:1.3rem;background:none;border:none;cursor:pointer">☰</button>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- LEFT -->
+  <div class="hero-l">
+    <div class="badge"><div class="badge-dot"></div> Zoho Developer &amp; CRM Lead · Open to work</div>
+
+    <h1 class="hero-title">
+      <div class="ht-line"><span>SYSTEMS</span></div>
+      <div class="ht-line" style="position:relative">
+        <span>THAT</span>
+        <svg class="circle-doodle" viewBox="0 0 200 70"><ellipse cx="100" cy="35" rx="96" ry="30" class="circle-path" stroke="rgba(255,255,255,.13)"/></svg>
+      </div>
+      <div class="ht-line" style="position:relative">
+        <span style="color:var(--red)">SCALE.</span>
+        <svg class="underline-svg" viewBox="0 0 300 12">
+          <path class="underline-path" d="M2 6 Q75 10 150 5 T298 7" stroke="var(--red)"/>
+        </svg>
+      </div>
+    </h1>
+
+    <p class="hero-sub">Zoho Developer and CRM Lead with expertise in Zoho solutions and AI-driven workflow automation. I build smart systems, integrate applications, and streamline business processes.</p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn-red">See Projects ↗</a>
+      <a href="#exp" class="btn-ghost">My Experience</a>
+      <div class="hand-note">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 4Q12 14 4 20M4 20h7M4 20v-7" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        real results<br>real impact
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><span>14+</span><span>Zoho Apps</span></div>
+      <div class="stat"><span>6+</span><span>Projects</span></div>
+      <div class="stat"><span>2+</span><span>Years Exp.</span></div>
+      <div class="stat"><span>∞</span><span>Automations</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Premium Floating Dashboard -->
+  <div class="hero-r">
+    <div class="dash-scene">
+      <div class="dash-glow"></div>
+      <div class="dash-tilt">
+
+        <!-- Main Analytics Card -->
+        <div class="gc-main">
+          <div class="live"><div class="live-d"></div> Live · Zoho Systems Active</div>
+
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.25rem">
+            <div>
+              <div style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Automation Performance</div>
+              <div style="font-family:var(--bebas);font-size:2.2rem;line-height:1.1;margin-top:.2rem">98.5% <span style="font-size:1rem;color:#2ECC71">↑</span></div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.62rem;color:var(--muted)">vs last month</div>
+              <div style="font-family:var(--hand);font-size:1.1rem;color:rgba(255,59,48,.7);transform:rotate(3deg);display:inline-block">+12.4%</div>
+            </div>
+          </div>
+
+          <!-- Area Chart -->
+          <div class="chart-wrap">
+            <div class="chart-label"><span>Jan</span><span>Mar</span><span>May</span><span>Jun</span></div>
+            <svg width="100%" height="90" viewBox="0 0 300 90" preserveAspectRatio="none" fill="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,59,48,.35)"/>
+                  <stop offset="100%" stop-color="rgba(255,59,48,0)"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid lines -->
+              <line x1="0" y1="22" x2="300" y2="22" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+              <line x1="0" y1="45" x2="300" y2="45" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+              <line x1="0" y1="68" x2="300" y2="68" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+              <!-- Area fill -->
+              <path d="M0 75 C30 75 40 60 60 55 S100 45 130 38 S180 25 210 20 S260 15 300 10 L300 90 L0 90 Z" fill="url(#chartGrad)"/>
+              <!-- Line -->
+              <path d="M0 75 C30 75 40 60 60 55 S100 45 130 38 S180 25 210 20 S260 15 300 10" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/>
+              <!-- Dot at end -->
+              <circle cx="300" cy="10" r="4" fill="var(--red)"/>
+              <circle cx="300" cy="10" r="8" fill="rgba(255,59,48,.2)"/>
+              <!-- Tooltip marker -->
+              <line x1="210" y1="20" x2="210" y2="90" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="3 2"/>
+              <circle cx="210" cy="20" r="3" fill="rgba(255,255,255,.5)"/>
+            </svg>
+          </div>
+
+          <!-- Mini stats row -->
+          <div class="stats-mini">
+            <div class="sm-item"><div class="sm-v gc-red">14+</div><div class="sm-l">Zoho Apps</div></div>
+            <div class="sm-item"><div class="sm-v">6+</div><div class="sm-l">Projects</div></div>
+            <div class="sm-item"><div class="sm-v" style="color:#2ECC71">∞</div><div class="sm-l">Automations</div></div>
+          </div>
+        </div>
+
+        <!-- Floating Card A: Active workflows -->
+        <div class="gc gc-a">
+          <div class="gc-label">Workflows</div>
+          <div class="gc-val gc-red">∞</div>
+          <div class="gc-sub">Active right now</div>
+          <!-- Mini bar chart -->
+          <div style="display:flex;align-items:flex-end;gap:3px;margin-top:.75rem;height:28px">
+            <div style="flex:1;background:rgba(255,59,48,.15);border-radius:2px 2px 0 0;height:40%"></div>
+            <div style="flex:1;background:rgba(255,59,48,.25);border-radius:2px 2px 0 0;height:65%"></div>
+            <div style="flex:1;background:rgba(255,59,48,.2);border-radius:2px 2px 0 0;height:50%"></div>
+            <div style="flex:1;background:rgba(255,59,48,.35);border-radius:2px 2px 0 0;height:80%"></div>
+            <div style="flex:1;background:rgba(255,59,48,.3);border-radius:2px 2px 0 0;height:70%"></div>
+            <div style="flex:1;background:var(--red);border-radius:2px 2px 0 0;height:100%"></div>
+          </div>
+        </div>
+
+        <!-- Floating Card B: Uptime -->
+        <div class="gc gc-b">
+          <div class="gc-label">System Health</div>
+          <!-- Ring SVG -->
+          <div class="ring-wrap" style="margin-top:.25rem">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="4"/>
+              <circle cx="24" cy="24" r="18" fill="none" stroke="#2ECC71" stroke-width="4" stroke-linecap="round"
+                stroke-dasharray="113.1" stroke-dashoffset="7" transform="rotate(-90 24 24)"/>
+              <text x="24" y="28" text-anchor="middle" font-family="'Bebas Neue'" font-size="11" fill="#2ECC71">99%</text>
+            </svg>
+            <div class="ring-label">
+              <h4 style="color:#2ECC71">Healthy</h4>
+              <p>All systems go</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Card C: Notification -->
+        <div class="gc gc-c">
+          <div class="gc-label" style="margin-bottom:.5rem">Recent</div>
+          <div class="toast" style="animation:toastIn .5s 2s both">
+            <div class="toast-ico green">✓</div>
+            <div><div class="toast-t">CRM Synced</div><div class="toast-s">2s ago · 847 records</div></div>
+          </div>
+          <div style="height:.5rem"></div>
+          <div class="toast" style="animation:toastIn .5s 2.3s both">
+            <div class="toast-ico red">⚡</div>
+            <div><div class="toast-t">Flow triggered</div><div class="toast-s">Lead assigned</div></div>
+          </div>
+        </div>
+
+        <!-- Floating Card D: Pipeline -->
+        <div class="gc gc-d">
+          <div class="gc-label">My Stack</div>
+          <div class="flow-row">
+            <div class="fchip">CRM</div>
+            <div class="flow-arrow">→</div>
+            <div class="fchip">Creator</div>
+            <div class="flow-arrow">→</div>
+            <div class="fchip">Flow</div>
+          </div>
+          <div class="flow-row">
+            <div class="fchip">Python</div>
+            <div class="flow-arrow">→</div>
+            <div class="fchip">LLM</div>
+            <div class="flow-arrow">→</div>
+            <div class="fchip">RAG</div>
+          </div>
+          <!-- Doodle annotation -->
+          <div style="font-family:var(--hand);font-size:.95rem;color:rgba(255,255,255,.18);margin-top:.5rem;transform:rotate(-2deg);display:inline-block">my toolbox ✦</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+
+<div class="ticker">
+  <div class="ticker-t">
+    <div class="ti">ZOHO CRM</div><div class="ti red">✦</div>
+    <div class="ti">CREATOR</div><div class="ti red">✦</div>
+    <div class="ti">ANALYTICS</div><div class="ti red">✦</div>
+    <div class="ti">DELUGE SCRIPTING</div><div class="ti red">✦</div>
+    <div class="ti">RAG PIPELINES</div><div class="ti red">✦</div>
+    <div class="ti">PYTHON</div><div class="ti red">✦</div>
+    <div class="ti">POWER BI</div><div class="ti red">✦</div>
+    <div class="ti">AI AUTOMATION</div><div class="ti red">✦</div>
+    <div class="ti">SIEM + EDR</div><div class="ti red">✦</div>
+    <div class="ti">WORKFLOW DESIGN</div><div class="ti red">✦</div>
+    <div class="ti">ZOHO CRM</div><div class="ti red">✦</div>
+    <div class="ti">CREATOR</div><div class="ti red">✦</div>
+    <div class="ti">ANALYTICS</div><div class="ti red">✦</div>
+    <div class="ti">DELUGE SCRIPTING</div><div class="ti red">✦</div>
+    <div class="ti">RAG PIPELINES</div><div class="ti red">✦</div>
+    <div class="ti">PYTHON</div><div class="ti red">✦</div>
+    <div class="ti">POWER BI</div><div class="ti red">✦</div>
+    <div class="ti">AI AUTOMATION</div><div class="ti red">✦</div>
+    <div class="ti">SIEM + EDR</div><div class="ti red">✦</div>
+    <div class="ti">WORKFLOW DESIGN</div><div class="ti red">✦</div>
+  </div>
+</div>
+
+<!-- ════ EXPERIENCE ════ -->
+<div class="section-divider rev" id="exp">
+  <div class="sd-num">01</div>
+  <div class="sd-title">EXPERIENCE</div>
+  <div class="sd-line"></div>
+  <div class="sd-hand">where I've built ✦</div>
+</div>
+<div class="bento">
+  <div class="bc s7 rev-l">
+    <div class="tc tc-red"></div>
+    <div class="wm">EXP</div>
+    <div class="btag">Work History</div>
+    <div class="btitle">ROLES I'VE HELD</div>
+    <div class="exp-cards">
+      <div class="ec">
+        <div class="ec-head"><div><div class="ec-role">Software Developer</div><div class="ec-co">ACER Credit Rating Pvt. Ltd</div></div><div class="ec-date">01/2026 – Present</div></div>
+        <ul class="pts">
+          <li><b>Zoho Org Setup:</b> Full implementation across HR (People, Recruit), Finance (Books, Payroll, Expense) &amp; Ops (CRM, Creator, Sign, Flow).</li>
+          <li><b>Cybersecurity:</b> Deployed EDR &amp; SIEM; built complete Disaster Recovery plan for Zoho environment.</li>
+          <li><b>Website:</b> End-to-end redesign &amp; redevelopment of company website.</li>
+        </ul>
+      </div>
+      <div class="ec">
+        <div class="ec-head"><div><div class="ec-role">Zoho Developer</div><div class="ec-co">Alpha Labs Tech</div></div><div class="ec-date">05/2024 – 01/2026</div></div>
+        <ul class="pts">
+          <li><b>Custom App Dev:</b> Built Zoho Creator apps across multiple industries, improving data management and UX.</li>
+          <li><b>Workflows:</b> Designed automation using Zoho CRM, Creator, and Deluge scripting.</li>
+          <li><b>Data Viz:</b> Power BI &amp; Zoho Analytics dashboards for NOVA Hospitals KPI tracking.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bc s5 rev-r" style="transition-delay:.12s">
+    <div class="tc tc-blue"></div>
+    <div class="wm">✦</div>
+    <div class="btag">Strengths</div>
+    <div class="btitle">WHAT I DO</div>
+    <div class="feat-stack">
+      <div class="fi"><div class="fi-ico">😊</div><div><h5>Zoho Expert</h5><p>Specialized in the complete Zoho ecosystem — 14+ apps</p></div></div>
+      <div class="fi"><div class="fi-ico" style="color:var(--red)">✳</div><div><h5>Cross-App Integrations</h5><p>Third-party APIs, webhooks and cross-application flows</p></div></div>
+      <div class="fi"><div class="fi-ico">⚡</div><div><h5>Automation Driven</h5><p>Deluge scripting, workflows &amp; process automation</p></div></div>
+      <div class="fi"><div class="fi-ico" style="color:var(--red)">🤖</div><div><h5>AI Enabled Systems</h5><p>RAG Pipelines, LLM integrations &amp; AI Agents</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SKILLS ════ -->
+<div class="section-divider rev" id="skills" style="transition-delay:.05s">
+  <div class="sd-num">02</div>
+  <div class="sd-title">SKILLS</div>
+  <div class="sd-line"></div>
+  <div class="sd-hand">my toolkit ✦</div>
+</div>
+<div class="bento">
+  <div class="bc s12 rev">
+    <div class="tc tc-green"></div>
+    <div class="wm">02</div>
+    <!-- Doodle annotation inside -->
+    <div style="position:absolute;top:1.5rem;right:2rem;font-family:var(--hand);font-size:1rem;color:rgba(255,255,255,.1);transform:rotate(4deg)">14+ apps mastered</div>
+    <div class="btag">Toolkit</div>
+    <div class="btitle">WHAT I WORK WITH</div>
+    <div class="skills-grid">
+      <div>
+        <div class="sg-head">Zoho Suite</div>
+        <div class="tags-flow">
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">CRM</span>
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Creator</span>
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Analytics</span>
+          <span class="tag">Desk</span><span class="tag">Sign</span><span class="tag">Campaigns</span>
+          <span class="tag">Social</span><span class="tag">People</span><span class="tag">Payroll</span>
+          <span class="tag">Books</span><span class="tag">Expense</span><span class="tag">Flow</span>
+          <span class="tag">Forms</span><span class="tag">Subscriptions</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-head">Programming</div>
+        <div class="tags-flow">
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Deluge</span>
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Python</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-head">Tools</div>
+        <div class="tags-flow">
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Power BI</span>
+          <span class="tag">Postman</span><span class="tag">GitHub</span><span class="tag">n8n</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-head">Concepts</div>
+        <div class="tags-flow">
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">RAG Pipeline</span>
+          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">AI Agents</span>
+          <span class="tag">ETL</span><span class="tag">SIEM</span>
+          <span class="tag">Data Integration</span><span class="tag">Process Automation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PROJECTS ════ -->
+<div class="section-divider rev" id="projects" style="transition-delay:.05s">
+  <div class="sd-num">03</div>
+  <div class="sd-title">PROJECTS</div>
+  <div class="sd-line"></div>
+  <div class="sd-hand">things I've shipped ✦</div>
+</div>
+<div class="bento">
+
+  <div class="bc s4 rev" style="transition-delay:.05s">
+    <div class="tc tc-red"></div>
+    <div class="pi">
+      <div class="pi-ey">CRM · Sign · Creator · Flow</div>
+      <div class="pi-name">ACER CRM & Operations</div>
+      <div class="pi-desc">Internal CRM for credit rating workflows — lead to closure, document automation, and end-to-end process flows using Zoho Flow.</div>
+      <div class="pi-stack"><span class="ptag">CRM</span><span class="ptag">Sign</span><span class="ptag">Flow</span></div>
+    </div>
+    <div class="pi-num">01</div>
+  </div>
+
+  <div class="bc s4 rev" style="transition-delay:.1s">
+    <div class="tc tc-blue"></div>
+    <div class="pi">
+      <div class="pi-ey">People · Payroll · Books · Expense</div>
+      <div class="pi-name">ACER HRMS & Finance</div>
+      <div class="pi-desc">End-to-end HRMS — hiring pipeline, employee lifecycle, payroll compliance, expense workflows, and financial analytics dashboards.</div>
+      <div class="pi-stack"><span class="ptag">People</span><span class="ptag">Payroll</span><span class="ptag">Books</span></div>
+    </div>
+    <div class="pi-num">02</div>
+  </div>
+
+  <div class="bc s4 rev" style="transition-delay:.15s">
+    <div class="tc tc-purple"></div>
+    <div class="pi">
+      <div class="pi-ey">Python · LLM · Vector Search</div>
+      <div class="pi-name">ACER RAG Pipeline</div>
+      <div class="pi-desc">AI pipeline enabling intelligent document retrieval, query resolution and automation of internal operations using LLMs.</div>
+      <div style="margin-top:1rem;padding:.75rem;background:rgba(155,89,182,.05);border:1px dashed rgba(155,89,182,.15);border-radius:10px">
+        <svg width="100%" height="32" viewBox="0 0 200 32" fill="none">
+          <rect x="2" y="6" width="40" height="20" rx="4" stroke="rgba(155,89,182,.4)" stroke-width="1"/>
+          <rect x="80" y="6" width="40" height="20" rx="4" stroke="rgba(155,89,182,.5)" stroke-width="1"/>
+          <rect x="158" y="6" width="40" height="20" rx="4" stroke="rgba(155,89,182,.4)" stroke-width="1"/>
+          <path d="M42 16h38M120 16h38" stroke="rgba(155,89,182,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="6" y="20" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">Vectors</text>
+          <text x="86" y="20" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">LLM</text>
+          <text x="163" y="20" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">Output</text>
+        </svg>
+      </div>
+      <div class="pi-stack"><span class="ptag">Python</span><span class="ptag">LLM</span><span class="ptag">RAG</span></div>
+    </div>
+    <div class="pi-num">03</div>
+  </div>
+
+  <div class="bc s4 rev" style="transition-delay:.06s">
+    <div class="tc tc-green"></div>
+    <div class="pi">
+      <div class="pi-ey">Zoho CRM · Analytics · Sign</div>
+      <div class="pi-name">LightHouse</div>
+      <div class="pi-desc">Student admissions CRM — lead conversion via 3rd-party API integrations, acknowledgment automation and performance dashboards.</div>
+      <div class="pi-stack"><span class="ptag">CRM</span><span class="ptag">Analytics</span><span class="ptag">Sign</span></div>
+    </div>
+    <div class="pi-num">04</div>
+  </div>
+
+  <div class="bc s4 rev" style="transition-delay:.11s">
+    <div class="tc tc-yellow"></div>
+    <div class="pi">
+      <div class="pi-ey">Zoho Desk · Creator</div>
+      <div class="pi-name">EPMS — Franchise Portal</div>
+      <div class="pi-desc">Franchise support platform with automated ticket management and real-time two-way sync between Zoho Creator and Desk.</div>
+      <div style="margin-top:1rem;padding:.75rem;background:rgba(241,196,15,.04);border:1px dashed rgba(241,196,15,.12);border-radius:10px">
+        <svg width="100%" height="30" viewBox="0 0 200 30" fill="none">
+          <rect x="10" y="5" width="60" height="20" rx="4" stroke="rgba(241,196,15,.3)" stroke-width="1"/>
+          <rect x="130" y="5" width="60" height="20" rx="4" stroke="rgba(241,196,15,.3)" stroke-width="1"/>
+          <path d="M70 13L130 13M70 17L130 17" stroke="rgba(241,196,15,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+          <text x="22" y="19" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">Creator</text>
+          <text x="148" y="19" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">Desk</text>
+        </svg>
+      </div>
+      <div class="pi-stack"><span class="ptag">Desk</span><span class="ptag">Creator</span></div>
+    </div>
+    <div class="pi-num">05</div>
+  </div>
+
+  <!-- Featured: R Stocks (wide) -->
+  <div class="bc s4 rev" style="transition-delay:.16s">
+    <div class="tc tc-teal"></div>
+    <div class="pi">
+      <div class="pi-ey">Zoho Creator</div>
+      <div class="pi-name">R Stocks — Trading Platform</div>
+      <div class="pi-desc">Buy/sell stocks, Demat account management, three investment categories and a real-time portfolio dashboard with data analytics.</div>
+      <div class="pi-chart">
+        <svg width="100%" height="90" viewBox="0 0 200 90" fill="none" preserveAspectRatio="none">
+          <defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(26,188,156,.2)"/><stop offset="100%" stop-color="rgba(26,188,156,0)"/></linearGradient></defs>
+          <path d="M0 80 L25 70 L50 72 L75 50 L100 55 L125 35 L150 40 L175 20 L200 15 L200 90 L0 90Z" fill="url(#tg)"/>
+          <path d="M0 80 L25 70 L50 72 L75 50 L100 55 L125 35 L150 40 L175 20 L200 15" stroke="rgba(26,188,156,.6)" stroke-width="1.5" fill="none"/>
+          <circle cx="200" cy="15" r="3" fill="#1ABC9C"/>
+          <text x="160" y="12" fill="rgba(255,255,255,.3)" font-size="7" font-family="monospace">+42.3%</text>
+        </svg>
+      </div>
+      <div class="pi-stack"><span class="ptag">Creator</span><span class="ptag">Dashboard</span><span class="ptag">Trading</span></div>
+    </div>
+    <div class="pi-num">06</div>
+  </div>
+
+</div>
+
+<!-- ════ EDUCATION ════ -->
+<div class="section-divider rev" id="education">
+  <div class="sd-num">04</div>
+  <div class="sd-title">EDUCATION & CERTS</div>
+  <div class="sd-line"></div>
+  <div class="sd-hand">background ✦</div>
+</div>
+<div class="bento">
+  <div class="bc s7 rev-l">
+    <div class="tc tc-blue"></div>
+    <div class="wm">04</div>
+    <div class="btag">Education</div>
+    <div class="btitle">WHERE I STUDIED</div>
+    <div class="edu-item">
+      <div class="edu-yr">2020–24</div>
+      <div>
+        <div class="edu-h">B.Tech — Computer Science Engineering</div>
+        <div class="edu-s">GITAM University</div>
+        <div class="edu-badges">
+          <div class="edu-badge">CGPA 7.89</div>
+          <div class="edu-badge">50% Scholarship</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bc s5 rev-r" style="transition-delay:.1s">
+    <div class="tc tc-purple"></div>
+    <div class="wm">★</div>
+    <div class="btag">Certifications</div>
+    <div class="btitle">CREDENTIALS</div>
+    <div class="cert-list">
+      <div class="cert-r"><span class="star">★</span> Data Analysis with Python</div>
+      <div class="cert-r"><span class="star">★</span> Preparing Data with Excel</div>
+      <div class="cert-r"><span class="star">★</span> Data Analysis with R Programming</div>
+      <div class="cert-r"><span class="star">★</span> Bits &amp; Bytes of Networking</div>
+    </div>
+  </div>
+
+  <!-- Interests full width -->
+  <div class="bc s12 rev" style="transition-delay:.08s">
+    <div class="wm">✦</div>
+    <!-- Doodle inside -->
+    <div style="position:absolute;bottom:1.5rem;right:2rem;font-family:var(--hand);font-size:1.1rem;color:rgba(255,255,255,.08);transform:rotate(-3deg)">always learning, always building</div>
+    <div class="btag">Interests</div>
+    <div class="btitle">WHAT EXCITES ME</div>
+    <div class="int-grid">
+      <div class="int-chip"><span class="arr">→</span> AI Agents &amp; LLM Models</div>
+      <div class="int-chip"><span class="arr">→</span> RAG Pipelines</div>
+      <div class="int-chip"><span class="arr">→</span> Business Case Studies</div>
+      <div class="int-chip"><span class="arr">→</span> Equity Market</div>
+      <div class="int-chip"><span class="arr">→</span> Blockchain Technology</div>
+      <div class="int-chip"><span class="arr">→</span> System Design</div>
+      <div class="int-chip"><span class="arr">→</span> Process Automation</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="fg">
+    <div>
+      <div class="fh">LET'S BUILD<br>SOMETHING<br><span style="color:var(--red)">GREAT</span><br>TOGETHER.</div>
+      <div class="fhand">— akhilsaibotu@gmail.com</div>
+    </div>
+    <div>
+      <p class="fp">Have a project in mind or need expert advice? Let's create systems that drive real impact and scale your business operations.</p>
+      <a href="mailto:akhilsaibotu@gmail.com" class="btn-red" style="display:inline-flex;align-items:center;gap:.6rem">Start a Conversation ↗</a>
+    </div>
+    <div class="f-right">
+      <div class="f-label">find me online</div>
+      <div class="f-ics">
+        <a href="https://linkedin.com" class="fic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://github.com" class="fic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <a href="mailto:akhilsaibotu@gmail.com" class="fic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="fbot">
+    <div>© 2026 Akhil Sai Botu · <a href="tel:+917386400905">+91 7386400905</a></div>
+    <div style="font-family:var(--hand);font-size:1.1rem;opacity:.25">built with ❤ &amp; way too much Zoho</div>
+    <div><a href="https://bit.ly/akhilsaib">bit.ly/akhilsaib</a></div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold: 0.08});
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el => io.observe(el));
+
+// Stagger bento children
+document.querySelectorAll('.bento').forEach(b => {
+  [...b.children].forEach((c,i) => {
+    if(!c.style.transitionDelay) c.style.transitionDelay = (i * 0.07) + 's';
+    c.classList.add('rev');
+    io.observe(c);
+  });
+});
+
+// 3D card tilt
+document.querySelectorAll('.bc').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateZ(4px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// Magnetic on CTAs
+document.querySelectorAll('.btn-red,.btn-ghost,.nav-pill').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) * 0.18;
+    const y = (e.clientY - r.top - r.height/2) * 0.18;
+    btn.style.transform = `translate(${x}px,${y}px)`;
+  });
+  btn.addEventListener('mouseleave', () => btn.style.transform = '');
+});
+
+// Counter animation for stats
+const countEls = document.querySelectorAll('.stat span:first-child');
+const countIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const el = e.target;
+      const val = el.textContent;
+      if(val === '∞') return;
+      const num = parseInt(val);
+      let cur = 0;
+      const step = num / 30;
+      const t = setInterval(() => {
+        cur = Math.min(cur + step, num);
+        el.textContent = Math.ceil(cur) + (val.includes('+') ? '+' : '');
+        if(cur >= num) clearInterval(t);
+      }, 30);
+      countIo.unobserve(el);
+    }
+  });
+}, {threshold: 1});
+countEls.forEach(el => countIo.observe(el));
+
+// Chip hover labels
+document.querySelectorAll('.app-c').forEach(c => {
+  c.style.transition = 'transform .3s cubic-bezier(.34,1.56,.64,1)';
+});
+</script>
+</body>
+</html>
