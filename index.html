@@ -700,6 +700,176 @@ a{text-decoration:none;color:inherit}
 .int-chip:hover{border-color:var(--red);color:#fff;transform:translateY(-2px)}
 .int-chip .arr{color:var(--red)}
 
+/* ─── PREMIUM SKILLS SECTION ─── */
+.premium-skills {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 30px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+  padding: 4rem;
+  margin: 2rem 1.5rem 6rem;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+
+/* Doodles */
+.ps-doodle {
+  position: absolute;
+  color: #fff;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.doodle-airplane { width: 36px; height: 36px; top: 10%; right: 10%; transform: rotate(-15deg); }
+.doodle-rocket { width: 40px; height: 40px; top: 40%; right: 4%; transform: rotate(15deg); }
+.doodle-code { width: 32px; height: 32px; bottom: 18%; left: 32%; transform: rotate(-8deg); }
+.doodle-gear { width: 38px; height: 38px; bottom: 8%; right: 28%; animation: spin 20s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.doodle-arrow { width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-left: 6px; transform: rotate(15deg); }
+
+/* Header */
+.ps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+}
+.ps-badge {
+  display: inline-block;
+  background: rgba(255, 92, 77, 0.1);
+  color: #FF5C4D;
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  border: 1px solid rgba(255, 92, 77, 0.2);
+  margin-bottom: 1.5rem;
+}
+.ps-title {
+  font-family: var(--bebas);
+  font-size: 4rem;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.ps-mastered {
+  font-family: var(--hand);
+  font-size: 1.2rem;
+  color: #9A9A9A;
+  opacity: 0.7;
+  transform: rotate(-3deg);
+  margin-top: 1rem;
+}
+
+/* Grid */
+.ps-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1.2fr;
+  gap: 2.5rem;
+  margin-bottom: 5rem;
+}
+.ps-col {
+  border-right: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-right: 2.5rem;
+  position: relative;
+}
+.ps-col-last {
+  border-right: none;
+  padding-right: 0;
+}
+.ps-col-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #E0E0E0;
+  margin-bottom: 2.5rem;
+}
+.ps-col-head svg {
+  width: 18px;
+  height: 18px;
+  color: #FF5C4D;
+}
+
+/* Pills */
+.ps-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ps-pills.zoho-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.ps-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 44px;
+  background: #0f1012;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 0 1rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #E0E0E0;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.ps-pill img, .ps-pill svg {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+.z-ico {
+  width: 18px !important;
+  height: 18px !important;
+  object-fit: cover !important;
+  object-position: left center !important;
+}
+.ps-pill:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(255, 92, 77, 0.15);
+  color: #fff;
+}
+
+/* Bottom */
+.ps-bot {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #18191c;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 1.8rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: #9A9A9A;
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 1024px) {
+  .ps-grid { grid-template-columns: repeat(2, 1fr); }
+  .ps-col { border-right: none; padding-right: 0; }
+  .ps-bot { bottom: 1rem; position: relative; left: 0; transform: none; display: flex; justify-content: center; margin-top: 2rem;}
+}
+@media (max-width: 768px) {
+  .premium-skills { padding: 2rem 1.5rem 5rem; margin: 2rem 1rem 4rem; border-radius: 20px; }
+  .ps-header { flex-direction: column; gap: 2rem; }
+  .ps-title { font-size: 3rem; }
+  .ps-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .ps-bot { width: 90%; justify-content: center; text-align: center; font-size: 0.75rem; bottom: 1.5rem; }
+}
 /* ─── SCROLL REVEAL ─────────────────── */
 .rev{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
 .rev.in{opacity:1;transform:translateY(0)}
@@ -1008,53 +1178,119 @@ footer::before{
   <div class="sd-num">02</div>
   <div class="sd-title">SKILLS</div>
   <div class="sd-line"></div>
-  <div class="sd-hand">my toolkit ✦</div>
+  <div class="sd-hand" style="margin-right:2rem">my toolkit <span style="color:var(--red)">✦</span></div>
 </div>
-<div class="bento">
-  <div class="bc s12 rev">
-    <div class="tc tc-green"></div>
-    <div class="wm">02</div>
-    <!-- Doodle annotation inside -->
-    <div style="position:absolute;top:1.5rem;right:2rem;font-family:var(--hand);font-size:1rem;color:rgba(255,255,255,.1);transform:rotate(4deg)">14+ apps mastered</div>
-    <div class="btag">Toolkit</div>
-    <div class="btitle">WHAT I WORK WITH</div>
-    <div class="skills-grid">
-      <div>
-        <div class="sg-head">Zoho Suite</div>
-        <div class="tags-flow">
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">CRM</span>
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Creator</span>
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Analytics</span>
-          <span class="tag">Desk</span><span class="tag">Sign</span><span class="tag">Campaigns</span>
-          <span class="tag">Social</span><span class="tag">People</span><span class="tag">Payroll</span>
-          <span class="tag">Books</span><span class="tag">Expense</span><span class="tag">Flow</span>
-          <span class="tag">Forms</span><span class="tag">Subscriptions</span>
-        </div>
+<div class="premium-skills rev" style="overflow:visible">
+  <!-- Doodles -->
+  <svg class="ps-doodle doodle-rocket" style="width:50px;height:50px;top:40%;right:-10px;transform:rotate(15deg);opacity:0.1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l.5-.5m-3-3l-.5.5m3 3l9.4-9.4a2.828 2.828 0 10-4-4L4.5 13.5v3h3z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg class="ps-doodle doodle-plant" style="width:80px;height:80px;bottom:10px;left:4%;opacity:0.2" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+    <path d="M30 90 L70 90 L65 60 L35 60 Z" stroke-width="2"/>
+    <path d="M50 60 Q40 40 20 30 Q30 50 50 60" stroke-width="2"/>
+    <path d="M50 60 Q60 30 80 20 Q70 50 50 60" stroke-width="2"/>
+    <path d="M50 60 Q55 20 40 10 Q35 30 50 60" stroke-width="2"/>
+  </svg>
+  
+  <!-- Header -->
+  <div class="ps-header">
+    <div>
+      <div class="ps-badge" style="position:relative">
+        TOOLKIT
+        <svg class="ps-doodle doodle-arrow" style="position:absolute;top:-8px;right:-30px;width:24px;transform:rotate(120deg);opacity:0.3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 9c3-4 8-4 11-1 3 3 3 8-1 11" stroke-width="1.5" stroke-linecap="round"/><path d="M12 19h3v-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div>
-        <div class="sg-head">Programming</div>
-        <div class="tags-flow">
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Deluge</span>
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Python</span>
-          <span class="tag">SQL</span>
-        </div>
+      <h2 class="ps-title">
+        <span style="position:relative">WHAT I
+          <svg style="position:absolute;bottom:-8px;left:0;width:100%;height:8px;color:var(--red)" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q50 8 100 2" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+        </span> WORK WITH
+      </h2>
+    </div>
+    <div class="ps-mastered">
+      <span style="position:relative;color:#fff;font-size:1.3rem">14+ apps mastered
+        <svg style="position:absolute;bottom:-6px;left:0;width:100%;height:6px;color:var(--red)" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q50 8 100 2" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      </span>
+      <svg class="doodle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="opacity:0.4"><path d="M5 9c3-4 8-4 11-1 3 3 3 8-1 11" stroke-width="1.5" stroke-linecap="round"/><path d="M12 19h3v-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Columns Grid -->
+  <div class="ps-grid">
+    
+    <!-- COL 1 -->
+    <div class="ps-col">
+      <div class="ps-col-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px"><path d="M7 10h10v4H7zm0 0a4 4 0 100-8 4 4 0 000 8zm10 0a4 4 0 100-8 4 4 0 000 8zm0 4a4 4 0 110 8 4 4 0 010-8zM7 14a4 4 0 110 8 4 4 0 010-8z" stroke-width="1.5"/></svg>
+        ZOHO SUITE
       </div>
-      <div>
-        <div class="sg-head">Tools</div>
-        <div class="tags-flow">
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">Power BI</span>
-          <span class="tag">Postman</span><span class="tag">GitHub</span><span class="tag">n8n</span>
-        </div>
+      <div class="ps-pills zoho-grid">
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/crm.svg" class="z-ico" alt="Zoho CRM"> CRM</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/creator.svg" class="z-ico" alt="Zoho Creator"> Creator</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/analytics.svg" class="z-ico" alt="Zoho Analytics"> Analytics</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/desk.svg" class="z-ico" alt="Zoho Desk"> Desk</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/campaigns.svg" class="z-ico" alt="Zoho Campaigns"> Campaigns</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/social.svg" class="z-ico" alt="Zoho Social"> Social</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/people.svg" class="z-ico" alt="Zoho People"> People</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/payroll.svg" class="z-ico" alt="Zoho Payroll"> Payroll</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/books.svg" class="z-ico" alt="Zoho Books"> Books</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/expense.svg" class="z-ico" alt="Zoho Expense"> Expense</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/flow.svg" class="z-ico" alt="Zoho Flow"> Flow</div>
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/forms.svg" class="z-ico" alt="Zoho Forms"> Forms</div>
+        <div class="ps-pill" style="grid-column: span 2;"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/subscriptions.svg" class="z-ico" alt="Zoho Subscriptions"> Subscriptions</div>
       </div>
-      <div>
-        <div class="sg-head">Concepts</div>
-        <div class="tags-flow">
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">RAG Pipeline</span>
-          <span class="tag" style="border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.7)">AI Agents</span>
-          <span class="tag">ETL</span><span class="tag">SIEM</span>
-          <span class="tag">Data Integration</span><span class="tag">Process Automation</span>
-        </div>
+    </div>
+
+    <!-- COL 2 -->
+    <div class="ps-col">
+      <div class="ps-col-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 8L6 12l4 4M14 8l4 4-4 4M16 4l-8 16" stroke-width="1.5" stroke-linecap="round"/></svg>
+        PROGRAMMING
       </div>
+      <div class="ps-pills">
+        <div class="ps-pill"><img src="https://www.zohowebstatic.com/sites/zweb/images/productlogos/deluge.svg" alt="Deluge" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik00IDRsMTYgMTZNNCAyMGwxNi0xNiIvPjwvc3ZnPg=='"> Deluge</div>
+        <div class="ps-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python"> Python</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#2c98f0"><ellipse cx="12" cy="5" rx="9" ry="3" stroke-width="1.5"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke-width="1.5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke-width="1.5"/></svg> SQL</div>
+      </div>
+      <svg class="ps-doodle doodle-code" style="width:50px;height:50px;bottom:-60px;left:10%;transform:rotate(-5deg);opacity:0.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="1.5"/><path d="M3 9h18M9 21V9" stroke-width="1.5"/><path d="M7 14l-2 2 2 2M11 14l2 2-2 2" stroke-width="1.5"/></svg>
+    </div>
+
+    <!-- COL 3 -->
+    <div class="ps-col">
+      <div class="ps-col-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 15l-6 6M15 9l6-6" stroke-width="1.5" stroke-linecap="round"/></svg>
+        TOOLS
+      </div>
+      <div class="ps-pills">
+        <div class="ps-pill"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI"> Power BI</div>
+        <div class="ps-pill"><img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="Postman"> Postman</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg> GitHub</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="#FF5C4D" style="width:20px;height:20px"><circle cx="6" cy="12" r="3" stroke-width="2"/><circle cx="18" cy="12" r="3" stroke-width="2"/><path d="M9 12h6" stroke-width="2"/></svg> n8n</div>
+      </div>
+      <svg class="ps-doodle doodle-gear" style="width:60px;height:60px;bottom:-40px;right:-10px;opacity:0.1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3" stroke-width="1.5"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" stroke-width="1.5"/></svg>
+    </div>
+
+    <!-- COL 4 -->
+    <div class="ps-col ps-col-last">
+      <div class="ps-col-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21h6M12 17v4M12 3a6 6 0 00-6 6c0 4 3 6 3 8h6c0-2 3-4 3-8a6 6 0 00-6-6z" stroke-width="1.5"/></svg>
+        CONCEPTS
+      </div>
+      <div class="ps-pills">
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#2ECC71"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path d="M12 16v-4M12 8h.01" stroke-width="1.5" stroke-linecap="round"/></svg> RAG Pipeline</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#9b59b6"><rect x="3" y="11" width="18" height="10" rx="2" stroke-width="1.5"/><circle cx="12" cy="5" r="2" stroke-width="1.5"/><path d="M12 7v4M8 11v4M16 11v4" stroke-width="1.5"/></svg> AI Agents</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#3498db"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke-width="1.5"/></svg> ETL</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#9b59b6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> SIEM</div>
+        <div class="ps-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:20px;height:20px;color:#3498db"><circle cx="18" cy="18" r="3" stroke-width="1.5"/><circle cx="6" cy="6" r="3" stroke-width="1.5"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v2a2 2 0 0 0 2 2h3" stroke-width="1.5"/></svg> Data Integration</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-bot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" style="width:16px;height:16px;margin-top:-6px"><path d="M8 10C8 7 10 5 10 5M16 10C16 7 18 5 18 5" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span style="font-family:var(--hand);font-size:1.15rem;letter-spacing:0.05em;color:#E0E0E0">always learning, always building</span>
+    <div style="position:relative;display:inline-flex;align-items:center;justify-content:center;margin-left:4px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" style="width:24px;height:24px">
+        <circle cx="10" cy="14" r="8" stroke-width="1.5"/>
+        <path d="M7 13h.01M13 13h.01M7 17c1 1 5 1 6 0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M18 6l2-2M20 10h3M15 3v-3" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
     </div>
   </div>
 </div>
